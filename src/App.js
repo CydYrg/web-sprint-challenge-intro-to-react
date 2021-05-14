@@ -1,7 +1,8 @@
-import React, { useState, useEffect, fetchData } from "react";
-import './App.css';
-import Character from './components/Character.js';
-import axios from "axios";
+import React, { useState, useEffect, fetchData } from "react"
+import './App.css'
+import Character from './components/Character.js'
+import axios from "axios"
+import {BASE_URL} from './App'
 
 
 const App = () => {
@@ -11,38 +12,49 @@ const App = () => {
   // Fetch characters from the API in an effect hook. Remember, anytime you have a 
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
-  const [data, setData] = useState({ hits: [] });
-  const [query, setQuery] = useState("react");
-  
-  const handleChange = e => {
-    setQuery(e.target.value)
-    fetchData(); // calls same external function after setting query
-  }
+  const [data, setData] = useState([]);
+ 
 
   useEffect(() => {
     const fetchData = () => {
       axios
-        .get("https://swapi.dev/api/people" + query)
+        .get("https://swapi.dev/api/people")
+        .then(res => {
+          console.log(res)
+          return res
+        })
         .then(res => setData(res.data));
     };
-    console.log(data)
+    
     fetchData();
-  }, [query]);
+  }, []);
 
-  return (
+  return(
     <div>
-      <button onClick={e => setQuery(number + 1)}>search</button>
-      <input value={query} onChange={e => setQuery(e.target.value)} />
       <ul>
-        {data.hits.map(item => (
-          //<li key={item.results.name}>
+        {data.map(userData => (
           <li>
-            <Character user={data} />
+            <Character user={userData} />
           </li>
         ))}
       </ul>
     </div>
   );
+
+  // return (
+  //   <div>
+  //     <button onClick={e => setQuery(1)}>search</button>
+  //     <input value={query} onChange={e => setQuery(e.target.value)} />
+  //     <ul>
+  //       {data.map(item => (
+          
+  //         <li>
+  //           <Character user={res. data} />
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   </div>
+  // );
 }
 
 export default App;
