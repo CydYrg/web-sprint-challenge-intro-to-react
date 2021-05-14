@@ -7,6 +7,6 @@ import { worker } from "./mocks/browser";
 worker.start();
 
 
-
+//check github!
 
 ReactDOM.render(<App />, document.getElementById("root"));
