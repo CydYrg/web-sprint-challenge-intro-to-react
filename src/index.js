@@ -3,8 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-
 import { worker } from "./mocks/browser";
 worker.start();
+
+
+//check github!
 
 ReactDOM.render(<App />, document.getElementById("root"));
